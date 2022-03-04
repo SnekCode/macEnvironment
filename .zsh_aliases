@@ -1,0 +1,15 @@
+# Python Aliases
+alias py='python3'
+alias pip=pip3.9
+export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3.9/site-packages
+
+# load zsh
+alias reloadsh='source ~/.zshrc'
+
+# copy
+alias copy="clipcopy"
+
+# function copy(){
+#   cat $1 | "pbcopy"
+# }
+
