@@ -25,15 +25,14 @@ set timeoutlen=1000 ttimeoutlen=0
 " settings for code
 syntax on
 set showmatch
-colorscheme delek
+colorscheme ron 
 set number
 set showcmd
 set ruler
 " tab replace and display
+" 50
   set expandtab
 set tabstop=2
-set listchars=trail:~,precedes:~,lead:→
-set list
 
 " Pictures
 autocmd BufEnter *.png,*.jpg,*gif exec "! ~/.iterm2/imgcat ".expand("%") | :bw
@@ -99,6 +98,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'mbbill/undotree'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'preservim/nerdtree'
+Plugin 'ycm-core/YouCompleteMe'
 call vundle#end()
 filetype plugin indent on
 
@@ -124,6 +124,7 @@ function Run(...)
         let args_str .= ' ' .
         \ shellescape(arg)
     endfor
+    exec 'w'
 
     " In the shell, clear any previous
     "  output and run the command using
@@ -136,3 +137,13 @@ endfunction
 
 command! -nargs=? Run call Run(<f-args>)
 
+highlight Pmenu ctermfg=255 ctermbg=236 guifg=#00d700 guibg=#ffffff
+highlight PmenuSel ctermfg=12 ctermbg=0
+
+ augroup vimrc
+
+   autocmd!
+
+   autocmd ColorScheme * highlight Pmenu ctermfg=255 ctermbg=236 guifg=#00d700 guibg=#ffffff | highlight PmenuSel ctermfg=12 ctermbg=0
+
+ augroup END
