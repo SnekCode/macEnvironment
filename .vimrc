@@ -1,5 +1,5 @@
 "
-" NOTES
+" 'NOTES'
 "
 "Mapping
 "nnoremap – Allows you to map keys in normal mode.
@@ -22,10 +22,14 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 " set timeout delay / escape key delay fix
 set timeoutlen=1000 ttimeoutlen=0
 
+" swap files
+set swapfile
+set directory=/tmp
+
 " settings for code
 syntax on
 set showmatch
-colorscheme ron 
+colorscheme onedarkhc
 set number
 set showcmd
 set ruler
@@ -39,9 +43,18 @@ autocmd BufEnter *.png,*.jpg,*gif exec "! ~/.iterm2/imgcat ".expand("%") | :bw
 
 
 " cursor display iterm2 and tmux
-let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+" let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+" let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
+" let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+
+
+if exists('$TMUX')
+      let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+      let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+  else
+      let &t_SI = "\e[5 q"
+      let &t_EI = "\e[2 q"
+  endif
 
 " undo
 nnoremap <F5> :UndotreeToggle<CR>
@@ -57,10 +70,18 @@ nnoremap <leader>/ :nohlsearch<CR>
 nnoremap n nzz
 nnoremap N Nzz
 
+"paste
+xnoremap p pgvy
 
 "movement
 nnoremap j gj
 nnoremap k gk
+nnoremap <leader>k :m .+1<CR>==
+nnoremap <leader>j :m .-2<CR>==
+" inoremap <leader>k <Esc>:m .+1<CR>==gi
+" inoremap <leader>j <Esc>:m .-2<CR>==gi
+vnoremap <leader>k :m '>+1<CR>gv=gv
+vnoremap <leader>j :m '<-2<CR>gv=gv
 
 "commands
 command QQ q!
@@ -87,6 +108,11 @@ nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
+" git
+set updatetime=100
+set signcolumn=yes
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
 
 
 " Plugins
@@ -95,6 +121,10 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
+Plugin 'flazz/vim-colorschemes'
 Plugin 'mbbill/undotree'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'preservim/nerdtree'

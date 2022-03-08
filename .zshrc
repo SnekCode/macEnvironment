@@ -1,13 +1,8 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-
-
-
-
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/snekcode/.oh-my-zsh"
-
 
 # export
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
@@ -120,3 +115,5 @@ alias readme='curl -O https://repo1.dso.mil/platform-one/big-bang/apps/library-c
 KEYTIMEOUT=1
 #ZVM_LINE_INIT_MODE=$ZVM_MODE_NORMAL
 ZVM_VI_SURROUND_BINDKEY=s-prefix
+zvm_after_init_commands+=("bindkey '^[[A' up-line-or-search" "bindkey '^[[B' down-line-or-search")
+
