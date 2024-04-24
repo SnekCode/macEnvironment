@@ -4,8 +4,16 @@
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/snekcode/.oh-my-zsh"
 
+export REPO1TOKEN="repo1-dso-milct6tLVAqmzGTx2uGtGGD"
+
 # export
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
+export PATH="/usr/local/Cellar:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export GPG_TTY=$(tty)
+
+# Path to vim config
+MYVIMRC="~/.config/nvim/init.lua"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -65,6 +73,7 @@ ZSH_THEME="robbyrussell"
 # see 'man strftime' for details.
 # HIST_STAMPS="mm/dd/yyyy"
 
+
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
@@ -75,11 +84,20 @@ ZSH_THEME="robbyrussell"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 plugins+=(zsh-vi-mode)
+plugins+=(poetry)
 source $ZSH/oh-my-zsh.sh
+fpath+=$ZSH_CUSTOM/conda-zsh-completion
+autoload -U compinit && compinit
 
 # User configuration
 source ~/.zsh_aliases
+source ~/.zsh_helm
 # export MANPATH="/usr/local/man:$MANPATH"
+
+# KPT
+
+
+
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -103,13 +121,16 @@ source ~/.zsh_aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# iterm shell integration
+ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=yes
+source ~/.iterm2_shell_integration.zsh
+
+
 autoload -Uz compinit
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
 
 [[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
-
-alias readme='curl -O https://repo1.dso.mil/platform-one/big-bang/apps/library-charts/gluon/-/raw/master/docs/README.md.gotmpl && curl -O https://repo1.dso.mil/platform-one/big-bang/apps/library-charts/gluon/-/raw/master/docs/.helmdocsignore && docker run --rm -v "`pwd`:/helm-docs" -u $(id -u) jnorwood/helm-docs:v1.5.0 -s file -t /helm-docs/README.md.gotmpl --dry-run > README.md && rm README.md.gotmpl .helmdocsignore'
 
 # escape timeout
 KEYTIMEOUT=1
@@ -117,3 +138,32 @@ KEYTIMEOUT=1
 ZVM_VI_SURROUND_BINDKEY=s-prefix
 zvm_after_init_commands+=("bindkey '^[[A' up-line-or-search" "bindkey '^[[B' down-line-or-search")
 
+source ~/.secrets
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/snekcode/miniconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/snekcode/miniconda/etc/profile.d/conda.sh" ]; then
+        . "/Users/snekcode/miniconda/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/snekcode/miniconda/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+#history
+setopt nosharehistory
+
+eval "$(atuin init zsh)"
+eval "$(zoxide init zsh)"
