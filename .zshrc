@@ -30,12 +30,16 @@ MYVIMRC="~/.config/nvim/init.lua"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
+
+# update automatically without asking
+zstyle ':omz:update' mode auto      
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git nvm zsh-syntax-highlighting you-should-use zsh-bat)
 plugins+=(poetry)
 source $ZSH/oh-my-zsh.sh
 fpath+=$ZSH_CUSTOM/conda-zsh-completion
@@ -292,18 +296,38 @@ _kustomize()
 if [ "$funcstack[1]" = "_kustomize" ]; then
     _kustomize
 fi
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
+alias passcopy=lpass_copy
+alias pass="lpass ls -l | grep --ignore-case"
+lpass_copy() {
+    if [ -z "$1" ]; then
+        echo "Usage: lpass_search <search_term>"
+        return 1
+    fi
+    
+    # Use fzf for selecting a LastPass entry interactively
+    match=$(lpass ls -l| grep --ignore-case "$1" | fzf --height 10%)
+    
+    if [ -n "$match" ]; then
+        # Assuming the entry has the form "id: entry_name"
+        # entry_id=$(echo "$match" | awk '{print $1}')
+        entry_id=$(echo "$match" | sed -n 's/.*\[id: \([0-9]*\)\].*/\1/p')
+        
+        if [ -n "$entry_id" ]; then
+            lpass show -c --password "$entry_id"
+            echo "Password copied to clipboard"
+        else
+            echo "No valid entry selected"
+        fi
+    else
+        echo "No matches found"
+    fi
+}
+fzfo() {
+  local editor="vim"
+  if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+    editor="code"
+  fi
+  fzf --preview "bat --color=always --style=numbers --line-range=:500 {}" \
+      --multi --bind "enter:become(${editor} {+})"
+}

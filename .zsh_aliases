@@ -107,3 +107,41 @@ export RENOVATE_CONFIG_JS='~/Projects/P1/Bigbang/renovate.js'
 alias cd='z'
 
 
+
+# Fuzzy search
+fo() {
+  local editor="nvim"
+  [[ "$TERM_PROGRAM" == "vscode" ]] && editor="code"
+
+  # Prefer .gitignore, fallback to .foignore
+  local ignorefile=".gitignore"
+  [[ ! -f "$ignorefile" && -f ".foignore" ]] && ignorefile=".foignore"
+
+  local find_exclude='! -path "*/.git/*"'  # Always exclude .git by default
+
+  if [[ -f "$ignorefile" ]]; then
+    while IFS= read -r pattern; do
+      # Skip comments and empty lines
+      [[ -z "$pattern" || "$pattern" =~ ^# ]] && continue
+
+      # Trim trailing slashes
+      pattern="${pattern%/}"
+
+      # Convert to find-friendly exclude flags
+      if [[ "$pattern" == *'*'* ]]; then
+        find_exclude+=" ! -name \"$pattern\""
+      else
+        find_exclude+=" ! -path \"*/$pattern/*\""
+      fi
+    done < "$ignorefile"
+  fi
+
+  # Run find with evaluated exclusions
+  eval find . -type f $find_exclude 2>/dev/null \
+    | fzf --preview "bat --color=always --style=numbers --line-range=:500 {}" \
+          --multi \
+          --bind "enter:become(${editor} {+})" \
+          --bind "ctrl-o:execute(xdg-open {} > /dev/null 2>&1)" \
+          --height=80% --layout=reverse --border \
+          --prompt="Open file: "
+}
