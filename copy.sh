@@ -4,3 +4,4 @@ ln $BASEDIR/.tmux.conf ~
 ln $BASEDIR/.vimrc ~
 ln $BASEDIR/.zshrc ~
 ln $BASEDIR/.zsh_aliases ~
+ln $BASEDIR/nvim ~/.config

@@ -38,7 +38,6 @@ brew install neovim
 brew install --cask visual-studio-code
 brew install tmux
 brew install --cask obsidian
-brew install --cask drawio
 brew install node
 brew install zoxide
 brew install atuin
@@ -52,3 +51,10 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm/
 # set up neovim config
 git clone https://github.com/SnekCode/nvim-config.git ~/.config/nvim/
 
+# install oh my zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+
+# Install nerd fonts
+brew tap homebrew/cask-fonts
+brew install font-hack-nerd-font

@@ -8,6 +8,14 @@ alias pydeact='source $(poetry env info --path)/bin/deactivate'
 
 # kube
 alias k8=kubectl
+alias k=kustomize
+
+# git
+alias gcsam='gcs -am'
+alias gcsm='git commit -S -m'
+
+# sed to use gsed instead
+# alias sed=gsed
 
 # less
 
@@ -35,6 +43,7 @@ function curljq() {
 
 # vim
 alias vim=nvim
+alias vi=nvim
 
 function cleanvim(){
         rm /tmp/*.swp; rm /tmp/.*.swp
@@ -80,11 +89,13 @@ function startcluster() {
 
 export CLUSTER_IP=15.200.241.232
 
+# R2D2 JAWS aliases
+alias jaws="cd ~/Projects/R2D2/JAWS"
+alias jawsfe="cd ~/Projects/R2D2/JAWS/frontend"
+alias jawscore="cd ~/Projects/R2D2/JAWS/backend/core"
+alias jawscorebuild="jawscore && sh ~/Projects/R2D2/JAWS/backend/core/build.sh && cd -"
+alias jawsstart="cd ~/Projects/R2D2/JAWS/frontend && sh start-dev.sh && cd -"
 
-
-function useBBbin(){
-   export PATH=~/Projects/P1/Bigbang/bin:$PATH
-}
 
 # P1 BB
 alias readme='curl -O https://repo1.dso.mil/big-bang/product/packages/gluon/-/raw/master/docs/README.md.gotmpl && curl -O https://repo1.dso.mil/big-bang/product/packages/gluon/-/raw/master/docs/.helmdocsignore && curl -O https://repo1.dso.mil/big-bang/product/packages/gluon/-/raw/master/docs/_templates.gotmpl && docker run --rm -v "`pwd`:/helm-docs" -u $(id -u) jnorwood/helm-docs:v1.10.0 -s file -t /helm-docs/README.md.gotmpl -t /helm-docs/_templates.gotmpl --dry-run > README.md && rm .helmdocsignore README.md.gotmpl _templates.gotmpl'
@@ -94,3 +105,5 @@ alias readme='curl -O https://repo1.dso.mil/big-bang/product/packages/gluon/-/ra
 export RENOVATE_CONFIG_JS='~/Projects/P1/Bigbang/renovate.js'
 
 alias cd='z'
+
+
