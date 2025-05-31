@@ -32,6 +32,7 @@ else
     install_homebrew
 fi
 
+brew install --cask git-credential-manager
 
 brew install --cask iterm2
 brew install neovim
