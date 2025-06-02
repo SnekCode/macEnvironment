@@ -107,6 +107,32 @@ export RENOVATE_CONFIG_JS='~/Projects/P1/Bigbang/renovate.js'
 alias cd='z'
 
 
+alias passcopy=lpass_copy
+alias pass="lpass ls -l | grep --ignore-case"
+lpass_copy() {
+    if [ -z "$1" ]; then
+        echo "Usage: lpass_search <search_term>"
+        return 1
+    fi
+    
+    # Use fzf for selecting a LastPass entry interactively
+    match=$(lpass ls -l| grep --ignore-case "$1" | fzf --height 10%)
+    
+    if [ -n "$match" ]; then
+        # Assuming the entry has the form "id: entry_name"
+        # entry_id=$(echo "$match" | awk '{print $1}')
+        entry_id=$(echo "$match" | sed -n 's/.*\[id: \([0-9]*\)\].*/\1/p')
+        
+        if [ -n "$entry_id" ]; then
+            lpass show -c --password "$entry_id"
+            echo "Password copied to clipboard"
+        else
+            echo "No valid entry selected"
+        fi
+    else
+        echo "No matches found"
+    fi
+}
 
 # Fuzzy search
 fo() {

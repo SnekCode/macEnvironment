@@ -41,8 +41,8 @@ brew install tmux
 brew install --cask obsidian
 brew install lastpass-cli
 # brew install node
-# brew install zoxide
-# brew install atuin
+brew install zoxide
+brew install atuin
 
 # install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
