@@ -44,6 +44,10 @@ brew install the_silver_searcher
 brew install zoxide
 brew install atuin
 brew install eza
+brew install gitui
+brew install ncspot
+brew install git-delta
+brew install ripgrep-all
 
 # install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash

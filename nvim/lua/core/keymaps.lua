@@ -18,6 +18,10 @@ vim.keymap.set('n', '<leader>bd', ':bd<CR>')
 vim.keymap.set('n', '<leader><Tab>', ":bnext<CR>")
 vim.keymap.set('n', '<leader><S-Tab>', ":bprev<CR>")
 
+-- next/prev list tiem
+vim.keymap.set('n', '<leader>]', ':cnext<CR>')
+vim.keymap.set('n', '<leader>[', ':cprev<CR>')
+
 -- write and quit maps
 vim.keymap.set('n', '<leader>q', function() vim.cmd([[
     bd
