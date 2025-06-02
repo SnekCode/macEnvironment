@@ -1,0 +1,18 @@
+# bin/bash
+source <(fzf --zsh)
+export FZF_COMPLETION_TRIGGER='jj'
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -l -g ""'
+
+# Fuzzy search functions
+fo() {
+  local editor="nvim"
+  [[ "$TERM_PROGRAM" == "vscode" ]] && editor="code"
+
+  # Run find with evaluated exclusions
+  fzf --preview "bat --color=always --style=numbers --line-range=:500 {}" \
+          --multi \
+          --bind "enter:become(${editor} {+})" \
+          --bind "ctrl-o:execute(xdg-open {} > /dev/null 2>&1)" \
+          --height=80% --layout=reverse --border \
+          --prompt="Open file: "
+}

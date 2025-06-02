@@ -79,6 +79,7 @@ setopt nosharehistory
 export PATH="$PATH:~/.local/bin/"
 
 # Source Files
+source ~/.zsh_fzf
 source ~/.zsh_aliases
 source ~/.iterm2_shell_integration.zsh
 
@@ -97,7 +98,7 @@ fi
 
 # Initialize zoxide
 if command -v zoxide &> /dev/null; then
-    source .zsh_zoxide
+    source ~/.zsh_zoxide
 else
     echo "zoxide is not installed. Please install it to use this feature."
 fi
