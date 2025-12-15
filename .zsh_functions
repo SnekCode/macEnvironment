@@ -1,0 +1,55 @@
+##################################################
+##################################################
+#         HISTORY SECTION                        #
+##################################################
+##################################################
+
+# Default global history
+export SAVEHIST=10000
+export HISTSIZE=10000
+export HISTFILE=~/.zsh_history
+
+
+# Recursive function to find .zsh_history in current or parent directories
+find_upward_history_file() {
+  local dir=$PWD
+
+  while [[ "$dir" != "/" ]]; do
+    if [[ -f "$dir/.zsh_history" ]]; then
+      echo "using scoped history: $dir/.zsh_history"
+      return 0
+    fi
+    dir=$(dirname "$dir")
+  done
+
+  echo $dir
+  return 1
+}
+
+# Function to update HISTFILE
+set_dynamic_histfile() {
+  local histfile=$(find_upward_history_file)
+  echo "setting dynamic history"
+  echo $histfile
+
+  if [[ -n "$histfile" ]]; then
+    export HISTFILE=$histfile
+    atuin import auto
+  else
+    export HISTFILE=~/.zsh_history
+  fi
+}
+
+# Hook into directory changes
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd set_dynamic_histfile
+
+# Set once at shell start
+set_dynamic_histfile
+
+
+
+do-ls() {emulate -L zsh; ls;}
+
+# add do-ls to chpwd hook
+add-zsh-hook chpwd do-ls

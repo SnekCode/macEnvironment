@@ -104,8 +104,7 @@ alias readme='curl -O https://repo1.dso.mil/big-bang/product/packages/gluon/-/ra
 # renovate config
 export RENOVATE_CONFIG_JS='~/Projects/P1/Bigbang/renovate.js'
 
-alias cd='z'
-alias ls='eza --icons --group-directories-first --git --git-repos --header'
+# alias ls='eza --icons --group-directories-first --git --git-repos --header'
 
 
 alias pass=lpass_copy
@@ -144,4 +143,16 @@ lpass_copy() {
     else
         echo "No matches found"
     fi
+}
+
+loadenv() {
+  if [ -f "$1" ]; then
+    set -a
+    source "$1"
+    set +a
+    echo "Loaded environment variables from $1"
+  else
+    echo "Error: File not found — $1" >&2
+    return 1
+  fi
 }

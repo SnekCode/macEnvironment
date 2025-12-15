@@ -6,7 +6,12 @@ ln -f $BASEDIR/.zshrc ~
 ln -f $BASEDIR/.zsh_zoxide ~
 ln -f $BASEDIR/.zsh_fzf ~
 ln -f $BASEDIR/.zsh_aliases ~
+ln -f $BASEDIR/.zsh_functions ~
 ln -sf "$REPODIR/nvim" ~/.config/nvim
 
 # tmux source ~/.tmux.conf
 ln -f "$BASEDIR/nvim/treemux_init.lua" ~/.tmux/plugins/treemux/configs/treemux_init.lua
+
+
+
+ln -f $BASEDIR/.zsh_zoxide ~

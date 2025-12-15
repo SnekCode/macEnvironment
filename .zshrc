@@ -1,8 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH=~/.oh-my-zsh
 
 # export
 # Java 17
@@ -39,8 +37,10 @@ zstyle ':omz:update' mode auto
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git nvm zsh-syntax-highlighting you-should-use zsh-bat)
+plugins=(ohmyzsh-full-autoupdate git nvm zsh-syntax-highlighting you-should-use zsh-bat zoxide)
 plugins+=(poetry)
+# Path to your oh-my-zsh installation.
+export ZSH=~/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 fpath+=$ZSH_CUSTOM/conda-zsh-completion
 autoload -U compinit && compinit
@@ -51,7 +51,7 @@ autoload -U compinit && compinit
 # iterm shell integration
 ITERM_ENABLE_SHELL_INTEGRATION_WITH_TMUX=yes
 
-autoload -Uz compinit
+# autoload -Uz compinit
 zstyle ':completion:*' menu select
 fpath+=~/.zfunc
 
@@ -60,9 +60,6 @@ KEYTIMEOUT=1
 #ZVM_LINE_INIT_MODE=$ZVM_MODE_NORMAL
 ZVM_VI_SURROUND_BINDKEY=s-prefix
 zvm_after_init_commands+=("bindkey '^[[A' up-line-or-search" "bindkey '^[[B' down-line-or-search")
-
-
-. "$HOME/.local/bin/env"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -76,12 +73,13 @@ export NVM_DIR="$HOME/.nvm"
 #history
 setopt nosharehistory
 
-export PATH="$PATH:~/.local/bin/"
+# export PATH="$PATH:~/.local/bin/"
 
 # Source Files
 source ~/.zsh_fzf
 source ~/.zsh_aliases
 source ~/.iterm2_shell_integration.zsh
+source ~/.zsh_k8
 
 if [ ! -f ~/.secrets ]; then
     echo "Secrets file not found. Creating a new one... `~/.secrets`"
@@ -102,3 +100,20 @@ if command -v zoxide &> /dev/null; then
 else
     echo "zoxide is not installed. Please install it to use this feature."
 fi
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/patrick.kelly/.lmstudio/bin"
+# End of LM Studio CLI section
+
+MAVEN_OPTS="-Djavax.net.ssl.trustStore=/Users/patrick.kelly/.gradle/cacerts -Djavax.net.ssl.trustStorePassword=changeit"
+export MAVEN_OPTS
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+export AWS_PROFILE=bedrock
+export CLAUDE_CODE_USE_BEDROCK=1
+export AWS_REGION=us-gov-west-1
+export ANTHROPIC_MODEL='anthropic.claude-3-7-sonnet-20250219-v1:0'
+export ANTHROPIC_SMALL_FAST_MODEL='anthropic.claude-3-5-sonnet-20240620-v1:0'
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"

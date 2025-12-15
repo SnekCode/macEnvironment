@@ -40,8 +40,7 @@ brew install --cask visual-studio-code
 brew install tmux
 brew install --cask obsidian
 brew install lastpass-cli
-brew install the_silver_searcher
-brew install zoxide
+brew install ag
 brew install atuin
 brew install eza
 brew install gitui
