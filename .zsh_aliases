@@ -6,6 +6,13 @@ alias py-dbug-connect='python3 -m debugpy --connect 5678'
 alias pyact='source $(poetry env info --path)/bin/activate'
 alias pydeact='source $(poetry env info --path)/bin/deactivate'
 
+
+# killport
+
+function killport(){
+  kill $(lsof -ti:$1)
+}
+
 # kube
 alias k8=kubectl
 alias k=kustomize
@@ -14,6 +21,8 @@ alias k=kustomize
 alias gcsam='gcs -am'
 alias gcsm='git commit -S -m'
 
+# ngrok
+alias ngrokapp="ngrok http http://localhost:3000"
 # sed to use gsed instead
 # alias sed=gsed
 
@@ -104,7 +113,8 @@ alias readme='curl -O https://repo1.dso.mil/big-bang/product/packages/gluon/-/ra
 # renovate config
 export RENOVATE_CONFIG_JS='~/Projects/P1/Bigbang/renovate.js'
 
-# alias ls='eza --icons --group-directories-first --git --git-repos --header'
+#alias cd='z'
+alias ls='eza --icons --group-directories-first --git --git-repos --header'
 
 
 alias pass=lpass_copy
