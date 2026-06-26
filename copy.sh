@@ -3,9 +3,11 @@ REPODIR=$(realpath "$BASEDIR")
 # rm ~/.zshrc ~/.zsh_aliases ~/.vimrc ~/.tmux.conf
 ln -f $BASEDIR/.tmux.conf ~
 ln -f $BASEDIR/.zshrc ~
+ln -f $BASEDIR/.zprofile ~
 ln -f $BASEDIR/.zsh_zoxide ~
 ln -f $BASEDIR/.zsh_fzf ~
 ln -f $BASEDIR/.zsh_aliases ~
+ln -f $BASEDIR/.iterm2_shell_integration.zsh ~
 ln -f $BASEDIR/.zsh_functions ~
 ln -sf "$REPODIR/nvim" ~/.config/nvim
 
