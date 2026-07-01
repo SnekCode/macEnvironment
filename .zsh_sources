@@ -1,0 +1,52 @@
+
+source ~/.zsh_fzf
+source ~/.zsh_aliases
+# source ~/.zsh_just
+if [[ "${TERM_PROGRAM:-}" == "iTerm.app" ]]; then
+    source ~/.iterm2_shell_integration.zsh
+fi
+
+if [ ! -f ~/.secrets ]; then
+    if [[ $- == *i* ]]; then
+      echo "Secrets file not found. Creating a new one... `~/.secrets`"
+    fi
+    touch ~/.secrets
+else
+    source ~/.secrets
+fi
+# AI files
+if [ ! -f ~/.zsh_ai ]; then
+    if [[ $- == *i* ]]; then
+      echo "AI file not found. Creating a new one... `~/.zsh_ai`"
+    fi
+    touch ~/.zsh_ai
+else
+    source ~/.zsh_ai
+fi
+
+#Device Specific
+if [ ! -f ~/.zsh_local ]; then
+    if [[ $- == *i* ]]; then
+      echo "zsh local config file not found. Creating a new one... `~/.zsh_local`"
+    fi
+    touch ~/.zsh_local
+else
+    source ~/.zsh_local
+fi
+
+if command -v atuin &> /dev/null; then
+    ATUIN_INIT_CACHE="$ZSH_INIT_CACHE_DIR/atuin.zsh"
+    if [[ ! -s "$ATUIN_INIT_CACHE" || "$(command -v atuin)" -nt "$ATUIN_INIT_CACHE" ]]; then
+        atuin init zsh >| "$ATUIN_INIT_CACHE"
+    fi
+    source "$ATUIN_INIT_CACHE"
+fi
+
+# Initialize zoxide
+if command -v zoxide &> /dev/null; then
+    source ~/.zsh_zoxide
+else
+    if [[ $- == *i* ]]; then
+      echo "zoxide is not installed. Please install it to use this feature."
+    fi
+fi

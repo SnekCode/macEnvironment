@@ -32,6 +32,9 @@ alias gcsm='git commit -S -m'
 
 # ngrok
 alias ngrokapp="ngrok http http://localhost:3000"
+
+alias claude="claude --allow-dangerously-skip-permissions --permission-mode dontAsk"
+
 # sed to use gsed instead
 # alias sed=gsed
 

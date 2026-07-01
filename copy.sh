@@ -4,6 +4,8 @@ REPODIR=$(realpath "$BASEDIR")
 ln -f $BASEDIR/.tmux.conf ~
 ln -f $BASEDIR/.zshrc ~
 ln -f $BASEDIR/.zprofile ~
+ln -f $BASEDIR/.zsh_sources ~
+ln -f $BASEDIR/.zsh_just ~
 ln -f $BASEDIR/.zsh_zoxide ~
 ln -f $BASEDIR/.zsh_fzf ~
 ln -f $BASEDIR/.zsh_aliases ~
